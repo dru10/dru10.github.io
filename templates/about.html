@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About {{ user["name"] }}
+{% endblock %}
+
+{% block main %}
+    <h2>Hello, {{ user["name"] }}!</h2>
+    <h3 style="margin-top: 20px;">Statistics: </h3>
+    <h5>Date joined: {{ user["date_joined"] }}</h5>
+    <h5>Number of exercises created: {{ user["exercises_created"] }}</h5>
+    <h3 style="margin-top: 20px;">Utility: </h3>
+    <button type="button" style="margin: 10px 20px;" class="btn btn-secondary"><a href="/change_password">Change password</a></button>
+    <button type="button" style="margin: 10px 20px;" class="btn btn-secondary"><a href="/change_username">Change username</a></button>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Exercises
+{% endblock %}
+
+{% block main %}
+    <div class="learn">
+        <h3>Learn more about an exercise:</h3>
+        <form action="/exercises" method="post">
+            <div class="form-group">
+              <label for="exercise_select">Exercise select</label>
+              <select class="form-control" id="exercise_select" name="exercise">
+                {% for elem in exercises %}
+                    <option>{{ elem }}</option>
+                {% endfor %}
+              </select>
+              <button type="submit" class="btn btn-secondary" id="search">Search</button>
+            </div>
+        </form>
+
+        {% if name %}
+            <div class="exercise-info">
+                <h1 style="margin-top: 50px; display: inline-block;">{{ name }}</h1><br>
+                <p class="description" style="margin-top: 20px; display: inline-block;">{{ description }}</p>
+                <img src="{{ bodypart }}" alt="Body diagram" style="width: 100px; height: 200px; float:right;"><br>
+                <iframe width="800" height="500" src="{{ link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="create">
+        <h3>Can't find the exercise you are looking for?</h3>
+        <button type="button" class="btn btn-primary btn-lg"><a href="/create_exercise">Create Exercise</a></button>
+    </div>
+
+{% endblock %}
