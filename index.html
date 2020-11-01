@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Workouts
+{% endblock %}
+
+{% block main %}
+    <h4>Select date:</h4>
+
+    <form action="/" method="post">
+      <div class="date_select">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" onclick="displayNiceDate(-1)">&laquo;</a>
+          </li>
+          <li class="page-item active">
+            <input type="text"readonly name="current" id="current">
+          </li>
+          <li class="page-item">
+            <a class="page-link" onclick="displayNiceDate(1)">&raquo;</a>
+          </li>
+        </ul>
+      </div>
+      <button type="submit" class="btn btn-primary" id="go_to_date">Go</button>
+    </form>
+
+    {% if workout == [] %}
+      <h3 style="margin-top: 30px;" id="current_text2">No workout for {{ date }} yet...</h3>
+    {% else %}
+      <h3 style="margin-top: 30px;" id="current_text">Your workout for {{ date }}:</h3>
+      <table class="table table-hover">
+        <tr>
+          <th>Exercise</th>
+          <th>Sets</th>
+          <th>Reps</th>
+        </tr>
+        {% for exercise in workout %}
+          <tr>
+            <td>{{ exercise["exercise_name"] }}</td>
+            <td>{{ exercise["sets"] }}</td>
+            <td>{{ exercise["reps"] }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+
+    <button class="btn btn-primary btn-lg"><a href="/add_exercise{{ date2 }}">Add exercise</a></button>
+
+    <script>
+      var date = new Date();
+      var options = {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
+      };
+      var month = date.getMonth();
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      document.getElementById("current").value = date.toLocaleDateString("fr", options);
+
+      function displayNiceDate(offset) {
+        n = date.getTime();
+        date = new Date(n + offset * 86400000);
+        month = date.getMonth();
+        document.getElementById("current").value = date.toLocaleDateString("fr", options);
+      }
+    </script>
+{% endblock %}
